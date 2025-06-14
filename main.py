@@ -1,13 +1,5 @@
 from __future__ import annotations
 
-"""github_pixel_art.py — v0.4.0
-================================
-• Poprawiono parsowanie nowego layoutu GitHuba (komórki `<td>` z klasą
-  `ContributionCalendar-day`).  
-• Usunięto nadmiarowy `print`, dodano wyraźne filtrowanie elementów z
-  `data-date`.
-"""
-
 import os
 import re
 import subprocess
@@ -117,7 +109,7 @@ def fetch_github_contributions(username: str, year: int) -> Dict[str, Tuple[int,
 def commit_on_dates(dates: List[Tuple[str, int]]) -> None:
     repo = Repo(REPO_PATH)
     os.chdir(REPO_PATH)
-    file_path = REPO_PATH / "pixel_art.txt"
+    file_path = REPO_PATH / "file.txt"
 
     for date_str, level in dates:
         n = COMMIT_LEVELS[level - 1]
