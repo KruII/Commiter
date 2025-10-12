@@ -303,52 +303,18 @@ def main() -> None:  # noqa: D401
     """Uruchamia okienko wyboru roku i użytkownika."""
 
     sel = tk.Tk()
-    sel.title("Commiter - Launcher")
+    sel.title("Wybierz rok i użytkownika")
     sel.configure(bg="#0D1117")
     sel.resizable(False, False)
 
-    # Title
-    tk.Label(sel, text="Commiter", font=("Arial", 16, "bold"), bg="#0D1117", fg="white").grid(
-        row=0, column=0, columnspan=2, pady=10
-    )
-
-    # Mode selection
-    tk.Label(sel, text="Select Mode:", font=("Arial", 10), bg="#0D1117", fg="white").grid(
-        row=1, column=0, columnspan=2, pady=5
-    )
-
-    def launch_dashboard():
-        sel.destroy()
-        try:
-            from dashboard import main as dashboard_main
-            dashboard_main()
-        except ImportError as e:
-            tk.messagebox.showerror("Error", f"Cannot load dashboard: {e}")
-
-    tk.Button(
-        sel,
-        text="📊 Open Dashboard (New!)",
-        command=launch_dashboard,
-        bg="#238636",
-        fg="white",
-        width=30,
-        pady=8,
-    ).grid(row=2, column=0, columnspan=2, pady=5, padx=20)
-
-    tk.Label(sel, text="─── OR ───", bg="#0D1117", fg="#8B949E").grid(row=3, column=0, columnspan=2, pady=5)
-
-    tk.Label(sel, text="GitHub Pixel Art Mode", font=("Arial", 10), bg="#0D1117", fg="white").grid(
-        row=4, column=0, columnspan=2, pady=5
-    )
-
-    tk.Label(sel, text="Rok:", bg="#0D1117", fg="white").grid(row=5, column=0, padx=5, pady=5, sticky="e")
+    tk.Label(sel, text="Rok:", bg="#0D1117", fg="white").grid(row=0, column=0, padx=5, pady=5, sticky="e")
     year_ent = tk.Entry(sel)
     year_ent.insert(0, datetime.now().year)
-    year_ent.grid(row=5, column=1, padx=5, pady=5)
+    year_ent.grid(row=0, column=1, padx=5, pady=5)
 
-    tk.Label(sel, text="Użytkownik GitHub:", bg="#0D1117", fg="white").grid(row=6, column=0, padx=5, pady=5, sticky="e")
+    tk.Label(sel, text="Użytkownik GitHub:", bg="#0D1117", fg="white").grid(row=1, column=0, padx=5, pady=5, sticky="e")
     user_ent = tk.Entry(sel)
-    user_ent.grid(row=6, column=1, padx=5, pady=5)
+    user_ent.grid(row=1, column=1, padx=5, pady=5)
 
     def _start():
         try:
@@ -363,9 +329,7 @@ def main() -> None:  # noqa: D401
         sel.destroy()
         draw(yr, usr)
 
-    tk.Button(sel, text="Open Pixel Art", command=_start, bg="#1F6FEB", fg="white", width=30, pady=5).grid(
-        row=7, column=0, columnspan=2, pady=10, padx=20
-    )
+    tk.Button(sel, text="Rozpocznij", command=_start, bg="#238636", fg="white").grid(row=2, column=0, columnspan=2, pady=10)
 
     sel.mainloop()
 
@@ -373,13 +337,5 @@ def main() -> None:  # noqa: D401
 if __name__ == "__main__":
     if len(sys.argv) == 3:
         draw(int(sys.argv[1]), sys.argv[2])
-    elif len(sys.argv) == 2 and sys.argv[1] == "--dashboard":
-        # Launch the new dashboard
-        try:
-            from dashboard import main as dashboard_main
-            dashboard_main()
-        except ImportError as e:
-            print(f"Error loading dashboard: {e}")
-            print("Make sure theme.py, widgets.py, and dashboard.py are present.")
     else:
         main()
